@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine?</title>
+    <style>
+        body {
+            background-color: #ffdde1;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            padding: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+        h1 {
+            color: #d63384;
+            font-size: 5em;
+            position: relative;
+            z-index: 10;
+        }
+        .button-container {
+            margin-top: 50px;
+            position: relative;
+            z-index: 10;
+        }
+        button {
+            font-size: 2em;
+            padding: 20px 40px;
+            border: none;
+            cursor: pointer;
+            border-radius: 20px;
+            margin: 20px;
+            position: relative;
+        }
+        #yesBtn {
+            background-color: #ff4081;
+            color: white;
+        }
+        #noBtn {
+            background-color: #ddd;
+            color: black;
+            position: absolute;
+            transition: left 0.2s, top 0.2s;
+        }
+        .heart, .rose {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            opacity: 0.7;
+            animation: floatUp 10s infinite linear;
+        }
+        @keyframes floatUp {
+            from {
+                transform: translateY(100vh);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(-10vh);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Will you be my Valentine? ❤️</h1>
+    <div class="button-container">
+        <button id="yesBtn" onclick="confirmYes()">Yes!</button>
+        <button id="noBtn">No</button>
+    </div>
+    <script>
+        const noBtn = document.getElementById("noBtn");
+        let noClickCount = 0;
+        let hoverCount = 0;
+
+        noBtn.addEventListener("click", function () {
+            if (noClickCount === 0) {
+                alert("Why? You don’t love me anymore?");
+            } else if (noClickCount === 1) {
+                alert("Are you sure?");
+            } else if (noClickCount === 2) {
+                askUntilYes();
+            }
+            noClickCount++;
+        });
+
+        noBtn.addEventListener("mouseover", function () {
+            if (hoverCount < 3) {
+                const x = Math.max(20, Math.random() * (window.innerWidth - 200));
+                const y = Math.max(20, Math.random() * (window.innerHeight - 100));
+                noBtn.style.left = `${x}px`;
+                noBtn.style.top = `${y}px`;
+                hoverCount++;
+            }
+        });
+
+        function askUntilYes() {
+            let response = confirm("No, you can't! You have to! You will be my wife soon enough!");
+            while (!response) {
+                response = confirm("No, you can't! You have to! You will be my wife soon enough!");
+            }
+        }
+
+        function confirmYes() {
+            let response = confirm("Are you sure?");
+            if (response) {
+                alert("Yay! I LOVE YOU SOMUCH HEART!!!! HEHEHEHEHE ❤️❤️❤️");
+            }
+        }
+
+        function createFloatingElements() {
+            const elements = ['❤️', '🌹'];
+            for (let i = 0; i < 30; i++) {
+                let element = document.createElement("div");
+                element.className = elements[Math.floor(Math.random() * elements.length)] === '❤️' ? 'heart' : 'rose';
+                element.textContent = elements[Math.floor(Math.random() * elements.length)];
+                element.style.left = Math.random() * 100 + "vw";
+                element.style.animationDuration = (5 + Math.random() * 5) + "s";
+                document.body.appendChild(element);
+            }
+        }
+        createFloatingElements();
+    </script>
+</body>
+</html>
